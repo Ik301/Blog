@@ -5,7 +5,7 @@ url: "/about/"
 ---
 ## Who Am I?
 
-Princeton class of 2029, Financial Engineering major. Passionate about variety of things like poetry, reading, technology, and more. Navigating life as best as I can, enjoying all it has to offer.  
+Princeton class of 2029, Financial Engineering major and Philsophy minor. Passionate about variety of things like poetry, philsophy, technology, and more. Navigating life as best as I can, enjoying all it has to offer.  
   
 I started this blog in 2022 as a personal project, an online notebook of sorts. A place to share my thoughts, passions, and findings. I hope you join me in my journey, growing along side me!
 
