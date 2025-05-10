@@ -1,6 +1,7 @@
 ---
 title: "About Me"
 draft: false
+url: "/about/"
 ---
 ## Who Am I?
 
