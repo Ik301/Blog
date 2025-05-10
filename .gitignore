@@ -1,0 +1,19 @@
+# Hugo generated files
+/public/
+/resources/
+
+# Other common files to ignore
+*.bak
+*.swp
+*~
+.DS_Store # macOS specific
+Desktop.ini # Windows specific
+Thumbs.db # Windows specific
+
+# Hugo build lock file
+.hugo_build.lock
+
+# If you ever use Node.js for theme assets or other tools
+node_modules/
+package-lock.json
+yarn.lock 
