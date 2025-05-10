@@ -2,7 +2,7 @@
 title: "About Me"
 draft: false
 url: "/about/"
-show_date: false
+date: "2024-05-10" 
 ---
 ## Who Am I?
 
