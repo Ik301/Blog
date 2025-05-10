@@ -1,0 +1,8 @@
+{{- /* Umami Analytics */}}
+{{- if hugo.IsProduction }} {{- /* Only include in production builds */}}
+  {{- with .Site.Params.umami }}
+    {{- if .websiteId }}
+      <script defer src="https://cloud.umami.is/script.js" data-website-id="393d0938-ebe6-402d-bdfc-357dcb84bcb9"></script>
+    {{- end }}
+  {{- end }}
+{{- end }}
