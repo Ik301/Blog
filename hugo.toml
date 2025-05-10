@@ -1,4 +1,4 @@
-baseURL = "https://github.com/Ik301/Blog"
+baseURL = "https://isaacyk.com/"
 languageCode = "en-us"
 title = "IK's Blog"
 theme = "rusty-typewriter"
@@ -44,6 +44,9 @@ buildExpired = false
       showAttachments = true   
       showRelated = true
       countRelated = 5         
+
+    [params.umami]
+      websiteId = "393d0938-ebe6-402d-bdfc-357dcb84bcb9" 
 
 [[menu.main]]
   identifier = "home"
