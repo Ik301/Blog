@@ -1,0 +1,79 @@
+{{/* LAYOUT: layouts/archives/list.html */}}
+{{- define "main" -}}
+
+  {{/* Use the title from archives.md front matter */}}
+  <h1>{{ .Title }}</h1>
+
+  {{/* Optional: Display content from archives.md if any */}}
+  {{- if .Content -}}
+    <div class="content-font page-section">
+      {{ .Content }}
+    </div>
+    <hr> {{/* Optional separator */}}
+  {{- end -}}
+
+  {{/* --- Logic to get and display ALL posts --- */}}
+
+  {{/* 1. Select the pages to include in the archive (only type "posts") */}}
+  {{ $posts := where site.RegularPages "Type" "posts" }}
+
+  {{/* 2. Check if there are any posts to display */}}
+  {{ if $posts }}
+
+    {{/* 3. Group the posts by year */}}
+    {{ range $posts.GroupByDate "2006" }} {{/* Group by year (format "2006") */}}
+
+      {{/* Display the Year Heading */}}
+      <h2 class="list-group-key">{{ .Key }}</h2>
+
+      {{/* Loop through posts within this year, newest first */}}
+      {{ range .Pages.ByDate.Reverse }}
+        <div class="list-item" style="margin-bottom: 1.5rem;"> {{/* Added class and margin for structure */}}
+          <div class="list-group-heading">
+            {{/* Link to the post */}}
+            <a href="{{- .RelPermalink -}}">{{- partial "title.html" . -}}</a>
+            {{/* Display Month and Day - aligned right like original */}}
+            <time class="dim" style="float: right;" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+              {{- .Date.Format (or $.Site.Params.dateFormat "Jan 2") -}} {{/* Use site format or default */}}
+            </time>
+          </div>
+          {{/* Optional: Display summary if needed - uncomment if desired */}}
+          {{/*
+          <div class="list-group-summary content-font">
+            {{- partial "components/summary.html" . -}}
+          </div>
+          */}}
+        </div>
+      {{- end -}} {{/* End range .Pages.ByDate.Reverse */}}
+
+    {{ end }} {{/* End range $posts.GroupByDate */}}
+
+  {{ else }}
+    {{/* Message if no posts are found */}}
+    <p>There are no posts to display in the archives yet.</p>
+  {{ end }} {{/* End if $posts */}}
+
+{{- end -}} {{/* End define "main" */}}
+
+
+{{/* --- SIDE PANE --- */}}
+{{/* We can keep the side pane definition if you want it on the archives page */}}
+{{/* You might want to use the 'single' side pane here if it's more relevant? */}}
+{{/* Or comment it out if you don't want a side pane on the archives page */}}
+
+{{- define "side" -}}
+  {{/* Option 1: Use the single page side pane configuration */}}
+   <aside id="side-pane" class="{{- cond site.Params.rtwt.side.single.sidePaneSticky "side-sticky" "" -}}">
+     {{- partial "side/single.html" . -}}
+   </aside>
+
+  {{/* Option 2: Use the list page side pane configuration (as originally in list.html) */}}
+  <!--
+  <aside id="side-pane" class="{{- cond site.Params.rtwt.side.list.sidePaneSticky "side-sticky" "" -}}">
+    {{- partial "side/list.html" . -}}
+  </aside>
+  -->
+
+  {{/* Option 3: No side pane on archives page */}}
+  {{/* (Leave this 'define "side"' block empty or remove it) */}}
+{{- end -}} {{/* End define "side" */}}

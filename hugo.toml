@@ -25,7 +25,7 @@ buildExpired = false
 
     [params.rtwt.home]
       showBio = true            
-      showAuthorImg = true      
+      showAuthorImg = false      
       sidePaneTags = true       
       showFeatured = true     
       showRecent = true         
@@ -42,7 +42,7 @@ buildExpired = false
       showDetails = true       
       showTableOfContents = true
       showAttachments = true   
-      showRelated = true
+      showRelated = false
       countRelated = 5         
 
     [params.umami]
