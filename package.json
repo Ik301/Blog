@@ -6,12 +6,14 @@
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy",
-    "publish": "node publish.js" 
+    "publish": "node publish.js",
+    "deploy": "npm run build && gh-pages -d _site"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "gh-pages": "^6.3.0",
     "gray-matter": "^4.0.3"
   }
 }
