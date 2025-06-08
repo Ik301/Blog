@@ -1,0 +1,407 @@
+/* === NEW PALETTE & TYPOGRAPHY === */
+:root {
+    --bg-color: #f4f1ea;          /* Warm, smoky white */
+    --surface-color: #ffffff;     /* Pure white for cards */
+    --text-primary: #3c3631;      /* Dark charcoal-brown */
+    --text-secondary: #7a726a;    /* Muted, soft brown for meta */
+    --border-color: #e5e0d7;      /* A border that matches the theme */
+    
+    /* Using system fonts for performance and a native feel. */
+    /* Georgia is a beautiful, classic serif widely available. */
+    --font-serif: Georgia, 'Times New Roman', serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* === RESET & BASE STYLES === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* === HEADER & FOOTER === */
+.header {
+    background: transparent;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.nav {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-primary);
+}
+
+.footer {
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    margin-top: 4rem;
+}
+
+.footer p {
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.footer .copyright {
+    margin-top: 0.5rem; /* A tiny bit of space between the lines */
+    font-size: 0.9rem;
+}
+
+.footer a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--border-color); /* Subtle underline color */
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+}
+
+.footer a:hover {
+    color: var(--text-secondary);
+}
+
+/* === MAIN CONTENT === */
+.main {
+    flex: 1;
+    padding: 2rem 0 4rem;
+}
+
+/* === NEW HOMEPAGE STYLES === */
+.home-hero {
+    text-align: center;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;   /* Stack items vertically (logo above blurb) */
+    justify-content: center;  /* Center vertically */
+    align-items: center;      /* Center horizontally */
+    min-height: 65vh; 
+}
+
+.home-hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size */
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+}
+
+.home-hero p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.section-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+
+.latest-dispatch {
+    margin-bottom: 6rem;
+}
+
+.latest-post-card {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    background: var(--surface-color);
+    padding: 3rem;
+    border-radius: 4px;
+}
+
+.latest-post-card h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.latest-post-card h3 a {
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: color 0.2s ease;
+}
+
+.latest-post-card h3 a:hover {
+    color: var(--text-secondary);
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.post-excerpt {
+    color: var(--text-primary);
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.explore-all {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.explore-all .btn {
+    display: inline-block;
+    border: 1px solid var(--text-secondary);
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: 50px;
+    transition: all 0.2s ease;
+}
+
+.explore-all .btn:hover {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg-color);
+}
+
+/* === GENERAL POST CARD & LIST STYLES === */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.post-card {
+    background: var(--surface-color);
+    padding: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(60, 54, 49, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(60, 54, 49, 0.1);
+}
+
+.post-card h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-card h3 a {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.post-category {
+    display: inline-block;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1rem;
+}
+
+/* === POSTS PAGE LAYOUT === */
+.posts-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.sidebar {
+    position: sticky;
+    top: 2.5rem;
+    background: transparent;
+}
+
+.sidebar h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+.category-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.category-filter {
+    display: block;
+    text-decoration: none;
+    color: var(--text-secondary);
+    padding: 0.5rem 0;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+}
+
+.category-filter:hover, .category-filter.active {
+    color: var(--text-primary);
+}
+
+/* === SINGLE POST & ABOUT PAGE STYLES === */
+.post-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.post-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.post-content, .about-content {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Add space after every paragraph, list, and blockquote */
+.post-content p,
+.post-content ul,
+.post-content ol,
+.post-content blockquote {
+    margin-bottom: 1.7rem;
+}
+
+/* Add more space before headings to separate sections clearly */
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.3;
+}
+
+/* Pro-tip: Remove the bottom margin from the very last element in the article */
+.post-content > :last-child {
+    margin-bottom: 0;
+}
+
+
+/* === RESPONSIVE STYLES === */
+@media (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    .header .container { flex-direction: column; gap: 1.5rem; }
+    .home-hero { padding: 3rem 0; }
+    .posts-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .sidebar { position: static; }
+    .category-filters { flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+}
+
+.page-header {
+    text-align: center;
+    padding: 2rem 0 4rem;
+}
+
+.page-header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.post-content blockquote {
+    /* The vertical line on the left, using your theme's border color */
+    border-left: 3px solid var(--border-color);
+
+    /* Push the text away from the new border */
+    padding-left: 1.5rem;
+
+    /* Use the secondary text color to distinguish it from the main text */
+    color: var(--text-secondary);
+
+    /* Italicizing is a classic way to style quoted text */
+    font-style: italic;
+}
+
+/* Pro-tip: A blockquote contains its own <p> tags. This removes the
+   extra margin from the last paragraph inside the quote for perfect spacing. */
+.post-content blockquote p:last-of-type {
+    margin-bottom: 0;
+}
+
+.subscribe-page .subscribe-content {
+    max-width: 600px; /* A little narrower for scannability */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.subscribe-page .subscribe-content p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem; /* Slightly larger text for emphasis */
+}
+
+.subscribe-page .subscribe-action {
+    margin-top: 2.5rem;
+}
