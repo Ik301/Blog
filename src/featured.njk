@@ -12,7 +12,7 @@ permalink: /featured/index.html
 <div class="posts-list">
     {% for post in collections.featured | reverse %}
     <article class="post-card">
-        {# Apply the url filter to post.url #}
+        {# THIS IS THE LINE THAT NEEDS THE FIX #}
         <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
         <div class="post-meta">
             {{ post.date | dateDisplay }}
