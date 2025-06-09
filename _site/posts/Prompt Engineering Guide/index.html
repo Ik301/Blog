@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering Guide - Connecting Dots</title>
+    <link rel="stylesheet" href="/css/style.css">
+    
+    
+    
+    
+</head>
+<body class="page-prompt-engineering-guide">
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">
+                <a href="/">Connecting Dots</a>
+            </h1>
+            <nav class="nav">
+                <a href="/featured/" class="nav-link ">Featured</a>
+                <a href="/posts/" class="nav-link ">All Posts</a>
+                <a href="/about/" class="nav-link ">About</a>
+                <a href="/subscribe/" class="nav-link ">Subscribe</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            
+<article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Prompt Engineering Guide</h1>
+        <div class="post-meta">
+            November 21, 2024
+        </div>
+    </header>
+    
+    <div class="post-content">
+        <p>#ML #prompt-engineering</p>
+<h2>Introduction</h2>
+<p>Have you ever felt like you're playing a game of charades with AI? You know exactly what you want, but somehow the AI keeps giving you responses that miss the mark. Maybe you've asked ChatGPT to help with your resume, only to get a generic template that looks nothing like what you imagined. Or perhaps you've tried using Claude to analyze a document, but the response was too verbose or completely off-topic.</p>
+<p>You're not alone! The secret to getting better results from AI isn't about finding the &quot;best&quot; AI model - it's about learning how to communicate with them effectively. This is where prompt engineering comes in.</p>
+<p>Think of prompt engineering as learning to speak &quot;AI language.&quot; Just like how you might phrase things differently when talking to a toddler versus a colleague, the way you structure your requests to AI can dramatically impact the quality of responses you get. And the best part? You don't need to be a tech expert or know how to code to master this skill.</p>
+<p>In this guide, I'll share four simple but powerful techniques that will help you get better results from any AI model you use. Whether you're using AI for work, study, or personal projects, these strategies will help you turn vague, unhelpful responses into precise, useful outputs that actually match what you're looking for.</p>
+<h2>1. Be Clear and Direct</h2>
+<p>The AI can't read your mind or know anything you don't tell it. Be clear, specific, and provide context for better results. The more the AI knows about the task at hand, the better it can assit you.</p>
+<h3>What You Should Include:</h3>
+<ul>
+<li><strong>Context</strong>: What is the task for and who is it meant for</li>
+<li><strong>Workflow</strong>: Explain where this task fits in your bigger project</li>
+<li><strong>End Goal</strong>: Define what success looks like</li>
+<li><strong>Specific Steps</strong>: Break down what you want the AI to do</li>
+</ul>
+<p>Here's an example of a vague prompt versus a clear one:</p>
+<p><strong>Vague</strong>: &quot;Help me with my financial analysis.&quot;</p>
+<p><strong>Clear</strong>: &quot;Your task is to analyze a financial statement for my presentation on the future of the semiconductor industry. The audience will be the managers and board of my IB firm. Your response is will be used to collect/organize data on different companies so that I can get a understanding of the industry. A successful analysis should have these components:</p>
+<ul>
+<li>Company name</li>
+<li>PE ratio</li>
+<li>YoY Revenue Growth</li>
+</ul>
+<p>Important notes: Output only the analysis and skip all the preamble.</p>
+<p>Here are the steps you should take:</p>
+<ol>
+<li>analyze the financial statement</li>
+<li>fill out the company name, pe ratio, and YoY revenue growth</li>
+<li>go back and find any important notes</li>
+<li>report back to me&quot;</li>
+</ol>
+<p>See the difference? The second prompt gives the AI everything it needs to provide a useful response.</p>
+<h2>2. Use XML Tags</h2>
+<p>Think of XML tags as organizing boxes - they help keep different parts of your conversation with AI neat and tidy. While it sounds technical, it's actually quite simple!</p>
+<h3>Why Use Tags?</h3>
+<ul>
+<li>Separates different parts of your prompt clearly</li>
+<li>Reduces confusion</li>
+<li>Makes it easier to modify specific parts</li>
+<li>Helps AI organize its response</li>
+</ul>
+<p>Example:</p>
+<pre><code>&lt;essay&gt;
+[Your essay goes here]
+&lt;/essay&gt;
+
+&lt;feedback&gt;
+[Feedback you received goes here]
+&lt;/feedback&gt;
+
+Analyze the essay and feedback above, focusing on areas of improvement.
+</code></pre>
+<h2>3. Use Examples (Multishot Prompting)</h2>
+<p>Like humans, AI can understand and learn better with examples. If you want the AI to format something in a specific way, give it an example to follow. This technique is called &quot;multishot prompting,&quot; but think of it as &quot;learning by example.&quot;</p>
+<h3>Why Use Examples?</h3>
+<ul>
+<li>Reduces misunderstandings</li>
+<li>Ensures consistent formatting</li>
+<li>Helps AI understand complex requirements</li>
+<li>Perfect for structured outputs</li>
+</ul>
+<p>For instance, if you're asking AI to analyze essays, you might provide an example analysis first:</p>
+<pre><code>Here's how I want you to analyze essays:
+
+&lt;example&gt;
+Theme: 
+- Pros: Strong personal growth narrative
+- Cons: Could go deeper into motivations
+
+Style:
+- Pros: Vivid imagery in key scenes
+- Cons: Some metaphors feel forced
+&lt;/example&gt;
+
+Now analyze my essay using this format...
+</code></pre>
+<h2>4. Let It Think (Chain of Thought)</h2>
+<p>Have you ever rushed to answer a question, only to realize you made a silly mistake? AI can do the same thing! Sometimes, it's better to let the AI think through problems step by step.</p>
+<p>This approach, called Chain of Thought (CoT), is particularly useful for:</p>
+<ul>
+<li>Math problems</li>
+<li>Logic puzzles</li>
+<li>Complex analysis</li>
+<li>Multi-step tasks</li>
+</ul>
+<p>Here's how to do it:</p>
+<ol>
+<li>Ask the AI to think step by step</li>
+<li>Request it to show its work</li>
+<li>Look for any gaps in its reasoning</li>
+</ol>
+<p><strong>Example:</strong>
+&quot;Before giving investment advice, I want you to think step by step. Think through:</p>
+<ol>
+<li>Current market conditions</li>
+<li>Historical trends</li>
+<li>Risk factors</li>
+<li>Alternative options</li>
+</ol>
+<p>Show your thinking process in &lt; thinking&gt; tags, then give your recommendation.&quot;</p>
+<h2>Putting It All Together</h2>
+<p>The best part about these techniques is that you can mix and match them based on your needs. Here's a prompt that combines all four:</p>
+<pre><code>You're a college admissions counselor. I need help analyzing an application essay.
+
+&lt;example&gt;
+Analysis should include:
+- Theme strength (1-10)
+- Writing style notes
+- Improvement suggestions
+&lt;/example&gt;
+
+&lt;essay&gt;
+[Essay content here]
+&lt;/essay&gt;
+
+Think through these steps:
+1. First impression
+2. Technical analysis
+3. Content analysis
+4. Final recommendations
+
+Provide your analysis using the format from my example.
+</code></pre>
+<h2>Conclusion</h2>
+<p>Prompt engineering isn't about memorizing complex rules or learning to code - it's about clear communication. By being specific, providing examples, letting AI think step-by-step, and organizing your prompts with tags, you can get dramatically better results from any AI tool.</p>
+<p>Remember, the key is to be clear about what you want and give the AI the context it needs to help you. With these techniques in your toolkit, you're well on your way to becoming an AI communication pro!</p>
+
+    </div>
+</article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            
+            <p>A monthly letter on the intricites of our world. <a href="https://iykb.kit.com/" target="_blank">Join the newsletter.</a></p>
+            <p class="copyright">© 2025 Connecting Dots</p>
+
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

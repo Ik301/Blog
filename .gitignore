@@ -1,0 +1,12 @@
+# Node.js dependencies
+node_modules/
+
+# 11ty build output
+_site/
+
+# Environment variables file (good practice to add)
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
