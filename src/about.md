@@ -6,28 +6,30 @@ title: About
 <div class="post-content">
 
 # About
-My name is Isaac, and this blog is my online notebook.
+My name is Isaac, and this is where I think out loud.
 
-I'm a student at Princeton University, where I study Financial Engineering and Philosophy—a combination that often gets a curious look, but one that sits at the very heart of this project. It began in 2022 as a place to document my learnings, but has since evolved into something more: an exploration of the connections that bind all fields of human experience.
+I'm a student at Princeton studying Financial Engineering and Philosophy—a combination that raises eyebrows but captures exactly what this space is about: the belief that seemingly disparate fields are actually different languages describing the same underlying reality.
 
-This space is dedicated to the convergence of three fundamental domains: the intellectual, the personal, and the spiritual.
+What started in 2022 as a simple learning log has become something more ambitious: an exploration of how the intellectual, personal, and spiritual dimensions of life illuminate each other.
 
 # The Philosophy
-I believe that every field of human endeavor—from physics to poetry, theology to technology—is an attempt to understand a single, underlying truth—God. Each discipline is a different language trying to describe the same ineffable reality. Each identity is a unique lens through which to see the same light.
+Every field of human inquiry—from physics to poetry, theology to technology—is an attempt to grasp truth. Each discipline offers a unique lens, but I believe they're all looking at the same light.
 
-This is the convergence I seek to explore:
+This conviction shapes how I approach three interconnected domains:
+> The Intellectual is the realm of rigorous analysis and structured knowledge. Here you'll find deep dives into AI architectures, book syntheses that changed my thinking, and frameworks for navigating complex systems. It's the pursuit of clarity through careful reasoning.
 
-> The Intellectual is the realm of logic, analysis, and structured knowledge. It’s the "how" and the "what." Here, you’ll find technical breakdowns of AI models, summaries of paradigm-shifting books, and strategic guides for navigating complex systems. It is the pursuit of clarity.
+> The Personal is the realm of lived experience and honest reflection. This is where my poetry on belonging lives alongside essays on relationships, identity, and the messy process of becoming. It's the pursuit of authenticity through vulnerable exploration.
 
-> The Personal is the realm of lived experience, emotion, and identity. It’s the "who." This is where my poetry on belonging, essays on relationships, and reflections on my own journey live. It is the pursuit of authenticity.
+> The Spiritual is the realm of ultimate questions and transcendent meaning. It's the thread that runs through everything else—the conviction that our intellectual and personal journeys are actually spiritual ones, pointing us toward something infinitely larger than ourselves.
 
-> The Spiritual is the realm of meaning, purpose, and our connection to something larger than ourselves. It’s the ultimate "why." This undercurrent shapes my questions about what makes a life well-lived and my conviction that all paths of inquiry can lead back to a single, creative source. It is the pursuit of meaning.
+# The Invitation
+This blog is my attempt to connect the dots between these worlds, to show how a sermon can illuminate a physics problem, how a poem can unlock a philosophical puzzle, how personal struggle can deepen spiritual understanding.
 
-This blog is my process of collecting and connecting the dots between these worlds. It is an invitation for you to do the same. Whether you leave with a new insight, a lingering question, or simply a moment of quiet contemplation, my goal is achieved.
+Whether you leave with a new insight, a lingering question, or simply a moment of quiet reflection, you've engaged with what matters most: the ongoing conversation between mind, heart, and soul.
 
 Thank you for thinking alongside me.
 
 # Connect with Me
-You can find me on [LinkedIn](https://www.linkedin.com/in/isaac-kang-yoo/).
+You can find me on <a href="https://www.linkedin.com/in/isaac-kang-yoo/" target="blank">LinkedIn
 
 </div>
