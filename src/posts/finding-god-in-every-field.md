@@ -2,7 +2,7 @@
 title: "Finding God In Every Field"
 date: 2025-06-01
 category: "Essays"
-excerpt: "How God reveals himself in Every Field"
+excerpt: "How God reveals himself in every discipline."
 tags: ["posts", "featured", "essays"]
 layout: post.njk
 ---
