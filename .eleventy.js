@@ -32,6 +32,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addCollection("featured", function(collectionApi) {
     return collectionApi.getFilteredByTag("featured");
   });
+
+  eleventyConfig.addPassthroughCopy("src/CNAME");
   
   // Date filter
   eleventyConfig.addFilter("dateDisplay", function(date) {
