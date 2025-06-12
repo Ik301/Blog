@@ -44,16 +44,18 @@ body {
 
 .header .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* This pushes the logo to the left and the nav/hamburger to the right */
     align-items: center;
 }
 
 .logo a {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-family: var(--font-serif);
     font-weight: 600;
     text-decoration: none;
     color: var(--text-primary);
+    /* NEW: Prevent the logo from shrinking if space is tight */
+    flex-shrink: 0;
 }
 
 .nav {
@@ -404,4 +406,188 @@ body {
 
 .subscribe-page .subscribe-action {
     margin-top: 2.5rem;
+}
+
+/* ==========================================================================
+   Mobile Navigation & Full-Screen Overlay
+   ========================================================================== */
+
+/* --- The Hamburger Button --- */
+.hamburger-btn {
+    display: none; /* Hidden on desktop by default */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101; /* Ensure it's above other content */
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-primary);
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* --- The Close Button (inside the overlay) --- */
+.close-btn {
+    display: none; /* Hidden on desktop */
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: transparent;
+    border: none;
+    font-size: 3rem;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Responsive Media Query (styles for tablet & mobile) - COMPLETE REWRITE
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* --- Header Layout Fix --- */
+    .header {
+        padding: 1.5rem 0;
+    }
+
+    /* CRITICAL: Make header container a simple flex row */
+    .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* Ensure no flex-direction override */
+        flex-direction: row;
+    }
+
+    .logo {
+        /* Ensure logo stays on left */
+        flex: 0 0 auto;
+    }
+
+    .logo a {
+        font-size: 1.1rem;
+    }
+
+    /* --- Hide Desktop Nav, Show Mobile Elements --- */
+    
+    /* Completely hide the nav container from the header layout */
+    .nav {
+        /* Remove from document flow entirely */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--bg-color);
+        z-index: 100;
+        
+        /* Center the menu items */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+
+        /* Hide off-screen by default */
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    /* Hide all nav links by default on mobile */
+    .nav .nav-link {
+        display: none;
+    }
+
+    /* Show hamburger button and position it on the right */
+    .hamburger-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* Ensure it stays on the right */
+        flex: 0 0 auto;
+        /* Make it smaller */
+        width: 30px;
+        height: 24px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        /* Fix vertical alignment */
+        align-self: center;
+        margin: 0;
+    }
+
+    /* Make hamburger lines uniform and smaller */
+    .hamburger-btn span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background-color: var(--text-primary);
+        margin: 2px 0;
+        transition: all 0.3s ease-in-out;
+        border-radius: 0;
+    }
+
+    /* --- Menu Open State --- */
+    .nav.is-open {
+        transform: translateX(0);
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Show nav links when menu is open */
+    .nav.is-open .nav-link {
+        display: block;
+        font-size: 2rem;
+        font-weight: 400;
+        color: var(--text-secondary);
+        text-decoration: none;
+    }
+    
+    /* Hide hamburger when menu is open - Fixed selector */
+    .nav.is-open ~ .hamburger-btn {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Show close button when menu is open */
+    .nav.is-open .close-btn {
+        display: block;
+    }
+
+    /* --- Prevent Body Scroll When Menu Open --- */
+    body.no-scroll {
+        overflow: hidden;
+    }
+
+    /* --- Other Mobile Adjustments --- */
+    .container { 
+        padding: 0 1.5rem; 
+    }
+    
+    .home-hero { 
+        padding: 3rem 0; 
+    }
+    
+    .posts-layout { 
+        grid-template-columns: 1fr; 
+        gap: 3rem; 
+    }
+    
+    .sidebar { 
+        position: static; 
+    }
+    
+    .category-filters { 
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        gap: 1rem; 
+    }
 }

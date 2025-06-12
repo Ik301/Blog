@@ -8,20 +8,27 @@
     <link rel="stylesheet" href="{{ '/css/style.css' | url }}">
     <script defer src="https://cloud.umami.is/script.js" data-website-id="393d0938-ebe6-402d-bdfc-357dcb84bcb9"></script>
 </head>
-<body class="page-{{ title | slugify }}">
+<body>
     <header class="header">
         <div class="container">
             <h1 class="logo">
-                {# Use the url filter for the root path #}
                 <a href="{{ '/' | url }}">Connecting Dots</a>
             </h1>
-            <nav class="nav">
-                {# Use the url filter for all navigation links #}
+
+            <nav class="nav" id="mobile-menu">
+                <button class="close-btn" id="menu-close">×</button>
+
                 <a href="{{ '/featured/' | url }}" class="nav-link {% if page.url == '/featured/' %}active{% endif %}">Featured</a>
                 <a href="{{ '/posts/' | url }}" class="nav-link {% if page.url == '/posts/' %}active{% endif %}">All Posts</a>
                 <a href="{{ '/about/' | url }}" class="nav-link {% if page.url == '/about/' %}active{% endif %}">About</a>
                 <a href="{{ '/subscribe/' | url }}" class="nav-link {% if page.url == '/subscribe/' %}active{% endif %}">Subscribe</a>
             </nav>
+
+            <button class="hamburger-btn" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 

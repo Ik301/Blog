@@ -30,3 +30,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// --- Mobile Menu Toggle Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuClose = document.getElementById('menu-close');
+    const navLinks = mobileMenu.querySelectorAll('.nav-link');
+
+    if (menuToggle && mobileMenu && menuClose) {
+        // Function to open the menu
+        const openMenu = () => {
+            mobileMenu.classList.add('is-open');
+            document.body.classList.add('no-scroll');
+        };
+
+        // Function to close the menu
+        const closeMenu = () => {
+            mobileMenu.classList.remove('is-open');
+            document.body.classList.remove('no-scroll');
+        };
+
+        // Event listeners
+        menuToggle.addEventListener('click', openMenu);
+        menuClose.addEventListener('click', closeMenu);
+
+        // Also close the menu if a nav link is clicked (good UX)
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    }
+});
