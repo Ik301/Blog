@@ -2,10 +2,36 @@ const fs = require('fs/promises');
 const path = require('path');
 const matter = require('gray-matter');
 
-// --- CONFIGURATION ---
-const DRAFTS_PATH = "C:/Obsidian/PC Vault/Writing";
-const POSTS_PATH = "C:/Chaewon/src/posts";
-// --- END CONFIGURATION ---
+// --- DYNAMIC CROSS-PLATFORM CONFIGURATION ---
+
+// 1. We'll use Node's built-in 'os' module to detect the operating system.
+const os = require('os');
+
+// 2. Define the paths for each of your machines.
+const paths = {
+  // The 'win32' is the official name for Windows in Node.js
+  win32: {
+    DRAFTS_PATH: "C:/Obsidian/PC Vault/Writing"
+  },
+  // The 'darwin' is the official name for macOS in Node.js
+  darwin: {
+    DRAFTS_PATH: "/Users/isaac/Documents/Obsidian - Mac Sync/Writing"
+  }
+};
+
+// 3. The script automatically selects the correct path based on the current OS.
+const platform = os.platform(); // This will be 'win32' on Windows, 'darwin' on Mac
+const { DRAFTS_PATH } = paths[platform];
+
+// This path is already cross-platform and doesn't need to be changed.
+const POSTS_PATH = path.join(__dirname, 'src/posts');
+
+// Check if the script knows which path to use.
+if (!DRAFTS_PATH) {
+  console.error(`❌ Error: Unsupported operating system detected ('${platform}').`);
+  console.error('Please add the correct DRAFTS_PATH for this OS in publish.js');
+  process.exit(1); // Exit the script with an error.
+}
 
 /**
  * Recursively finds all .md files in a given directory.
