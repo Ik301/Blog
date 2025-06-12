@@ -3,7 +3,7 @@ title: "We are Ivan Ilyich ... and We Will Die Unfulfilled"
 date: "2025-03-26"
 layout: post.njk
 category: "Essays"
-tags: ["posts", "Essays"]
+tags: ["posts", "featured", "Essays"]
 excerpt: ""
 status: ["finished", "blog"]
 ---

@@ -3,7 +3,7 @@ title: "Finding God in Every Field"
 date: "2025-01-26"
 layout: post.njk
 category: "Essays"
-tags: ["posts", "Essays"]
+tags: ["posts", "featured", "Essays"]
 excerpt: ""
 status: ["finished", "blog"]
 ---
