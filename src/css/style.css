@@ -319,6 +319,10 @@ body {
     line-height: 1.8;
 }
 
+.post-content {
+    white-space: pre-line;
+}
+
 /* Add space after every paragraph, list, and blockquote */
 .post-content p,
 .post-content ul,
