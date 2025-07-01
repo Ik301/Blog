@@ -1,6 +1,6 @@
 ---
 title: "Calypso"
-date: "2025-07-2"
+date: "2025-07-02"
 layout: post.njk
 category: "Poetry-Fiction"
 tags: ["posts", "Poetry-Fiction"]
@@ -15,7 +15,8 @@ my frozen beat, thawed
 
 from where you come,
 to ripple my peace?
-/
+
+‎ 
 one. two. three.
 a picture. a laugh. a smile.
 
@@ -23,7 +24,8 @@ echo across my sea
 
 how long will you stay,
 how many ripples will you make?
-/
+
+‎ 
 pat. pat. pat.
 sing me to sleep
 
@@ -31,7 +33,8 @@ become my peace
 
 do I dare to dream,
 of a river withheld?
-/
+
+‎ 
 . . .
 broken peace
 brought me ease

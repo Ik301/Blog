@@ -321,12 +321,12 @@ body {
 }
 
 /* Add space after every paragraph, list, and blockquote */
-.post-content p,
+/*.post-content p,
 .post-content ul,
 .post-content ol,
 .post-content blockquote {
     margin-bottom: 1.7rem;
-}
+}*/
 
 /* Add more space before headings to separate sections clearly */
 .post-content h2,

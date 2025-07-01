@@ -14,7 +14,7 @@ I envision a man, gently rowing his boat
 Wooden oars gliding through his passage
 
 I envision a cherry blossom, adorning the branches of fate
-Silently adored by a pensive gave
+Silently adored by a pensive gaze
 
 I envision the river, flowing once more
 Petals of the tree, flying once more
