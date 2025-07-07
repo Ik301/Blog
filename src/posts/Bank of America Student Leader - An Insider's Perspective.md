@@ -3,7 +3,7 @@ title: "Bank of America Student Leaders"
 date: "2024-08-09"
 layout: post.njk
 category: "Extracurriculars"
-tags: ["posts", "Extracurriculars", "featured"]
+tags: ["posts", "Extracurriculars"]
 excerpt: ""
 status: ["finished", "blog"]
 ---
