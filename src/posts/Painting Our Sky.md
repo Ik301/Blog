@@ -1,6 +1,6 @@
 ---
 title: "Painting Our Sky"
-date: "{{date:2025-09-06}}"
+date: "2025-09-06"
 layout: post.njk
 category: "Poetry-Fiction"
 tags: ["posts", "Poetry-Fiction"]
