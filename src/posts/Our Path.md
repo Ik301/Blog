@@ -3,7 +3,7 @@ title: "Our Path"
 date: "2024-08-09"
 layout: post.njk
 category: "Poetry-Fiction"
-tags: ["posts", "featured", "Poetry-Fiction"]
+tags: ["posts", "Poetry-Fiction"]
 excerpt: ""
 status: ["finished", "blog"]
 ---
