@@ -1,6 +1,6 @@
 ---
 title: "i had a dream"
-date: "{{date:2025-09-22}}"
+date: "2025-09-22"
 layout: post.njk
 category: "Poetry-Fiction"
 tags: ["posts", "Poetry-Fiction", "featured"]
