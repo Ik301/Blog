@@ -1,6 +1,6 @@
 ---
 title: "be just another human soul"
-date: "{{date:2025-11-25}}"
+date: "2025-11-25"
 layout: post.njk
 category: "Poetry-fiction"
 tags: ["posts", "poetry-fiction"]
