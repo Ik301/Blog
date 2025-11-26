@@ -30,7 +30,7 @@ forsaking the unseen.
 Does a poet not lament their hands,
 an artist, their tongue?
 
-But what is the ineffable to the stanza,
+But what is ineffable to the stanza,
 what can't be immortalized by the canvas?
 
 Neither the poet nor the artist understand,
