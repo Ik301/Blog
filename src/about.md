@@ -8,7 +8,7 @@ title: About
 # About
 My name is Isaac, and this is where I think out loud.
 
-I'm a student at Princeton studying Philosophy, Neuroscience, and Philosophy—a combination that raises eyebrows but captures exactly what this space is about: the belief that seemingly disparate fields are actually different languages describing the same underlying reality.
+I'm a student at Princeton studying Philosophy, Neuroscience, and Finance--combination that raises eyebrows but captures exactly what this space is about: the belief that seemingly disparate fields are actually different languages describing the same underlying reality.
 
 What started in 2022 as a simple learning log has become something more ambitious: an exploration of how the intellectual, personal, and spiritual dimensions of life illuminate each other.
 
