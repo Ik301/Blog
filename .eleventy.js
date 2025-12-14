@@ -48,7 +48,16 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("limit", function(array, limit) {
     return array.slice(0, limit);
   });
-  
+
+  // Remove hashtag lines filter (for Obsidian hashtags)
+  eleventyConfig.addFilter("removeHashtags", function(content) {
+    if (!content) return content;
+    // Remove lines that are ONLY hashtags (not markdown headings)
+    // Matches lines with multiple space-separated hashtags like "#Blog #Book #Summary"
+    // Must have at least one space between hashtags to distinguish from markdown headings
+    return content.replace(/^#[A-Za-z0-9_-]+(\s+#[A-Za-z0-9_-]+)+\s*$\n?/gm, '');
+  });
+
   return {
     dir: {
       input: "src",

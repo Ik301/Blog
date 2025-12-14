@@ -21,21 +21,21 @@ title: All Posts
         <div class="posts-list">
             {% for post in collections.posts | reverse %}
             {# This uses the slugify filter to ensure the JS filter works #}
-            <article class="post-card" data-category="{{ post.data.category | slugify }}">
-                
-                {# This uses the url filter to ensure links work on GitHub Pages #}
-                <h3><a href="{{ post.url | url }}">{{ post.data.title }}</a></h3>
-                
-                <div class="post-meta">
-                    {{ post.date | dateDisplay }}
-                </div>
-                {% if post.data.excerpt %}
-                <p class="post-excerpt">{{ post.data.excerpt }}</p>
-                {% endif %}
-                {% if post.data.category %}
-                <span class="post-category">{{ post.data.category }}</span>
-                {% endif %}
-            </article>
+            <a href="{{ post.url | url }}" class="post-card-link">
+                <article class="post-card" data-category="{{ post.data.category | slugify }}">
+                    <h3>{{ post.data.title }}</h3>
+
+                    <div class="post-meta">
+                        {{ post.date | dateDisplay }}
+                    </div>
+                    {% if post.data.excerpt %}
+                    <p class="post-excerpt">{{ post.data.excerpt }}</p>
+                    {% endif %}
+                    {% if post.data.category %}
+                    <span class="post-category">{{ post.data.category }}</span>
+                    {% endif %}
+                </article>
+            </a>
             {% endfor %}
         </div>
     </div>
