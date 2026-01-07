@@ -1,7 +1,7 @@
 // Category filtering functionality
 document.addEventListener('DOMContentLoaded', function() {
     const categoryFilters = document.querySelectorAll('.category-filter');
-    const postCardLinks = document.querySelectorAll('.post-card-link');
+    const archiveCardLinks = document.querySelectorAll('.archive-card-link');
 
     if (categoryFilters.length === 0) return; // Not on posts page
 
@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedCategory = this.getAttribute('data-category');
 
             // Show/hide posts based on category
-            postCardLinks.forEach(link => {
-                const card = link.querySelector('.post-card');
+            archiveCardLinks.forEach(link => {
+                const card = link.querySelector('.archive-card');
                 const postCategory = card.getAttribute('data-category');
 
                 if (selectedCategory === 'all' || postCategory === selectedCategory) {
@@ -63,74 +63,137 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- Floating Dots Animation ---
+// --- Da Vinci Network Animation (Pencil Sketch Effect) ---
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('dotsCanvas');
+    const canvas = document.getElementById('sketchCanvas');
     if (!canvas) return; // Only run on home page
 
     const ctx = canvas.getContext('2d');
-    let dots = [];
+    let particles = [];
     let animationFrameId;
+    let time = 0;
+
+    // Mouse tracking
+    let mouse = { x: null, y: null };
+    const mouseRadius = 150;
+
+    // Colors (Dark Academia palette)
+    const dotColor = 'rgba(59, 42, 35, 0.4)';      // Espresso at 40%
+    const lineColor = 'rgba(123, 75, 51, 0.15)';   // Wood at 15%
+
+    // Configuration
+    const config = {
+        particleCount: 60,
+        maxRadius: 2,
+        minRadius: 1,
+        baseSpeed: 0.05,          // Much slower base movement
+        connectionDistance: 100,
+        lineWidth: 0.5,
+        mouseAttraction: 0.08     // Stronger gravitational pull
+    };
 
     // Resize canvas to fill container
     function resizeCanvas() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-        initDots();
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        // Adjust particle count based on screen size
+        config.particleCount = Math.floor((canvas.width * canvas.height) / 20000);
+        config.particleCount = Math.max(40, Math.min(80, config.particleCount));
+
+        initParticles();
     }
 
-    // Dot class
-    class Dot {
+    // Particle class with organic movement
+    class Particle {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.radius = Math.random() * 3 + 1;
+            this.radius = Math.random() * (config.maxRadius - config.minRadius) + config.minRadius;
+
+            // Very slow base velocity
+            this.vx = (Math.random() - 0.5) * config.baseSpeed;
+            this.vy = (Math.random() - 0.5) * config.baseSpeed;
+
+            // Unique offset for organic noise movement
+            this.noiseOffsetX = Math.random() * 1000;
+            this.noiseOffsetY = Math.random() * 1000;
         }
 
         update() {
+            // Organic drift using sine waves (simulates perlin noise effect)
+            const drift = 0.0003;  // Even slower drift
+            this.vx += Math.sin(time * drift + this.noiseOffsetX) * 0.003;
+            this.vy += Math.cos(time * drift + this.noiseOffsetY) * 0.003;
+
+            // Stronger damping for very slow ambient movement
+            this.vx *= 0.98;
+            this.vy *= 0.98;
+
+            // Mouse attraction (strong gravitational pull, speeds up near cursor)
+            if (mouse.x !== null && mouse.y !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouseRadius && distance > 0) {
+                    // Exponential force increase as particles get closer
+                    const force = Math.pow((mouseRadius - distance) / mouseRadius, 1.5);
+                    this.vx += (dx / distance) * force * config.mouseAttraction;
+                    this.vy += (dy / distance) * force * config.mouseAttraction;
+                }
+            }
+
+            // Clamp velocity (higher max when near mouse)
+            const maxVel = config.baseSpeed * 3;
+            this.vx = Math.max(-maxVel, Math.min(maxVel, this.vx));
+            this.vy = Math.max(-maxVel, Math.min(maxVel, this.vy));
+
+            // Update position
             this.x += this.vx;
             this.y += this.vy;
 
-            // Bounce off edges
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            // Soft edge wrapping (no harsh bouncing)
+            const margin = 50;
+            if (this.x < -margin) this.x = canvas.width + margin;
+            if (this.x > canvas.width + margin) this.x = -margin;
+            if (this.y < -margin) this.y = canvas.height + margin;
+            if (this.y > canvas.height + margin) this.y = -margin;
         }
 
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(6, 182, 212, 0.5)';
+            ctx.fillStyle = dotColor;
             ctx.fill();
         }
     }
 
-    // Initialize dots
-    function initDots() {
-        dots = [];
-        const numDots = Math.floor((canvas.width * canvas.height) / 15000);
-        for (let i = 0; i < numDots; i++) {
-            dots.push(new Dot());
+    // Initialize particles
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < config.particleCount; i++) {
+            particles.push(new Particle());
         }
     }
 
-    // Draw connecting lines
-    function drawLines() {
-        const maxDistance = 150;
-        for (let i = 0; i < dots.length; i++) {
-            for (let j = i + 1; j < dots.length; j++) {
-                const dx = dots[i].x - dots[j].x;
-                const dy = dots[i].y - dots[j].y;
+    // Draw connecting lines (constellation effect)
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < maxDistance) {
-                    const opacity = (1 - distance / maxDistance) * 0.4;
+                if (distance < config.connectionDistance) {
+                    // Fade opacity based on distance (darker when closer, mimics pencil pressure)
+                    const opacity = (1 - distance / config.connectionDistance) * 0.2;
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(6, 182, 212, ${opacity})`;
-                    ctx.lineWidth = 1;
-                    ctx.moveTo(dots[i].x, dots[i].y);
-                    ctx.lineTo(dots[j].x, dots[j].y);
+                    ctx.strokeStyle = `rgba(123, 75, 51, ${opacity})`;
+                    ctx.lineWidth = config.lineWidth;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
                     ctx.stroke();
                 }
             }
@@ -141,15 +204,31 @@ document.addEventListener('DOMContentLoaded', () => {
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        drawLines();
+        time++;
 
-        dots.forEach(dot => {
-            dot.update();
-            dot.draw();
+        // Draw connections first (behind particles)
+        drawConnections();
+
+        // Update and draw particles
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
         });
 
         animationFrameId = requestAnimationFrame(animate);
     }
+
+    // Mouse event listeners
+    canvas.parentElement.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+
+    canvas.parentElement.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
 
     // Initialize and start animation
     resizeCanvas();
