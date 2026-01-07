@@ -1,16 +1,32 @@
+// Archive Card Title Centering - Calculate offset to center title in card
+document.addEventListener('DOMContentLoaded', () => {
+    const archiveCards = document.querySelectorAll('.archive-card');
+
+    archiveCards.forEach(card => {
+        const reveal = card.querySelector('.archive-card-reveal');
+        if (reveal) {
+            // Calculate offset: half of reveal height + half of margin-top
+            const revealHeight = reveal.offsetHeight;
+            const marginTop = parseFloat(getComputedStyle(reveal).marginTop) || 0;
+            const offset = (revealHeight + marginTop) / 2;
+            card.style.setProperty('--reveal-offset', `${offset}px`);
+        }
+    });
+});
+
 // Category filtering functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const categoryFilters = document.querySelectorAll('.category-filter');
+    const filterPills = document.querySelectorAll('.filter-pill');
     const archiveCardLinks = document.querySelectorAll('.archive-card-link');
 
-    if (categoryFilters.length === 0) return; // Not on posts page
+    if (filterPills.length === 0) return; // Not on posts page
 
-    categoryFilters.forEach(filter => {
-        filter.addEventListener('click', function(e) {
+    filterPills.forEach(pill => {
+        pill.addEventListener('click', function(e) {
             e.preventDefault();
 
             // Remove active class from all filters
-            categoryFilters.forEach(f => f.classList.remove('active'));
+            filterPills.forEach(p => p.classList.remove('active'));
 
             // Add active class to clicked filter
             this.classList.add('active');
@@ -241,4 +257,76 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('beforeunload', () => {
         cancelAnimationFrame(animationFrameId);
     });
+});
+
+// --- 3D Featured Carousel (Rotunda) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.carousel-track');
+    if (!track) return; // Only run on featured page
+
+    const cards = track.querySelectorAll('.exhibit-card');
+    if (cards.length === 0) return;
+
+    function updateCardStates() {
+        const trackRect = track.getBoundingClientRect();
+        const centerX = trackRect.left + trackRect.width / 2;
+
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const distanceFromCenter = Math.abs(centerX - cardCenterX);
+            const threshold = cardRect.width * 0.6;
+
+            // Remove all state classes
+            card.classList.remove('is-active', 'is-side', 'is-side-left', 'is-side-right');
+
+            if (distanceFromCenter < threshold) {
+                // Center card
+                card.classList.add('is-active');
+            } else {
+                // Side cards
+                card.classList.add('is-side');
+                if (cardCenterX < centerX) {
+                    card.classList.add('is-side-left');
+                } else {
+                    card.classList.add('is-side-right');
+                }
+            }
+        });
+    }
+
+    // Scroll listener with requestAnimationFrame throttle
+    let ticking = false;
+    track.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                updateCardStates();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // Tap-to-center for side cards (mobile and desktop)
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (!card.classList.contains('is-active')) {
+                // Don't follow link if clicking a side card - scroll it to center instead
+                e.preventDefault();
+                e.stopPropagation();
+                card.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'center',
+                    block: 'nearest'
+                });
+            }
+            // If card is active, let the click bubble to the CTA link naturally
+        });
+    });
+
+    // Initialize card states on load
+    updateCardStates();
+
+    // Also update on window resize
+    window.addEventListener('resize', updateCardStates);
 });

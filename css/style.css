@@ -1048,6 +1048,59 @@ body {
 }
 
 /* ==========================================================================
+   POSTS PAGE - Header & Filter Bar
+   ========================================================================== */
+.posts-page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.posts-header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+}
+
+.posts-header h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    color: var(--espresso);
+    margin: 0;
+}
+
+/* Filter Bar - Horizontal Pills */
+.filter-bar {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+.filter-pill {
+    text-decoration: none;
+    color: var(--wood);
+    border: 1px solid var(--latte);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.filter-pill:hover {
+    background: var(--latte);
+    color: var(--parchment);
+}
+
+.filter-pill.active {
+    background: var(--wood);
+    color: var(--parchment);
+    border-color: var(--wood);
+}
+
+/* ==========================================================================
    ARCHIVE GRID (All Posts Page) - Masonry "Wall of Ideas" Layout
    ========================================================================== */
 .archive-grid {
@@ -1067,12 +1120,13 @@ body {
     background: var(--parchment);
     border: 1px solid var(--latte);
     border-radius: 4px;
-    padding: 1.5rem;
-    min-height: 200px;
+    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
     transition: border-color 0.3s ease;
+    --reveal-offset: 0px;  /* Will be set by JS based on reveal height */
 }
 
 .archive-card:hover {
@@ -1087,20 +1141,25 @@ body {
     opacity: 0.7;
     margin: 0;
     line-height: 1.3;
+    text-wrap: balance;
     transition: all 0.3s ease;
+    /* Push title down by half the reveal height to center it visually */
+    transform: translateY(var(--reveal-offset));
 }
 
 .archive-card:hover .archive-card-title {
     color: var(--espresso);
     opacity: 1;
-    transform: translateY(-5px);
+    /* Move title back to natural position on hover */
+    transform: translateY(0);
 }
 
-/* Reveal section - always in DOM, invisible until hover */
+/* Reveal section - in normal flow for sizing, invisible until hover */
 .archive-card-reveal {
     opacity: 0;
     transition: opacity 0.3s ease 0.1s;
     margin-top: 1rem;
+    width: 100%;
 }
 
 .archive-card:hover .archive-card-reveal {
@@ -1108,10 +1167,24 @@ body {
 }
 
 .archive-card-excerpt {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     line-height: 1.6;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.75rem 0;
+}
+
+.archive-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.archive-card-time {
+    font-size: 0.75rem;
+    color: var(--latte);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .archive-card-tag {
@@ -1143,12 +1216,32 @@ body {
     }
 
     .archive-card {
-        min-height: 150px;
         padding: 1.25rem;
+        min-height: 150px;
     }
 
     .archive-card-title {
         font-size: 1.25rem;
+    }
+
+    .archive-card:hover .archive-card-title {
+        transform: translateY(-15px);
+    }
+
+    .archive-card-reveal {
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+    }
+
+    .filter-bar {
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .filter-pill {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -1210,161 +1303,224 @@ body {
     color: var(--parchment);
 }
 
-/* Featured Exhibit Layout */
-.featured-exhibit {
-    padding: 2rem 0;
+/* ==========================================================================
+   3D ROTUNDA CAROUSEL - Featured Posts
+   ========================================================================== */
+
+/* Global Atmosphere (The Room) */
+.featured-page {
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-.featured-header {
-    text-align: center;
-    padding: 3rem 0 4rem;
+/* Break rotunda out of container constraint */
+.featured-page .main .container {
+    max-width: none;
+    padding: 0;
 }
 
-.featured-header h1 {
-    font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 600;
-    font-style: italic;
-    color: var(--parchment);
-    margin-bottom: 1rem;
+.spotlight-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 60% 70% at 50% 50%,
+        rgba(59, 42, 35, 0) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
 }
 
-.featured-header p {
-    font-size: 1.15rem;
-    color: var(--latte);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.7;
+.rotunda-container {
+    perspective: 1000px;
+    perspective-origin: center center;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
 }
 
-.featured-list {
+/* Carousel Track Layout */
+.carousel-track {
+    display: flex;
+    gap: 8vw;
+    padding: 5vh 50vw;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: relative;
+    z-index: 2;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Exhibit Card Base */
+.exhibit-card {
+    flex-shrink: 0;
+    width: 45vw;
+    max-width: 380px;
+    min-width: 280px;
+    aspect-ratio: 2/3;
+
     display: flex;
     flex-direction: column;
-    gap: 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 2rem;
+
+    background: var(--espresso);
+    border: 1px solid var(--latte);
+
+    scroll-snap-align: center;
+    transition: all 0.4s ease-out;
+    transform-style: preserve-3d;
+    cursor: pointer;
+
+    /* Default state (side card) */
+    opacity: 0.4;
+    transform: scale(0.9) rotateY(25deg);
+    filter: blur(2px);
+    z-index: 1;
 }
 
-.featured-row-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    margin-bottom: 150px;
+/* Typography - Closed State */
+.exhibit-numeral {
+    font-family: var(--font-serif);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--terracotta);
+    margin-bottom: 1.5rem;
 }
 
-.featured-row-link:last-child {
-    margin-bottom: 0;
-}
-
-.featured-row {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: 2rem;
-    padding: 2rem 0;
+.exhibit-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--parchment);
+    line-height: 1.3;
+    margin: 0;
     transition: transform 0.3s ease;
 }
 
-.featured-row:hover {
-    transform: translateX(10px);
+/* Hidden Details (revealed on hover) */
+.exhibit-details {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.4s ease, margin 0.3s ease;
+    margin-top: 0;
 }
 
-/* Left Column - Content */
-.featured-row-content {
-    padding-right: 2rem;
-}
-
-.featured-row-title {
+.exhibit-excerpt {
     font-family: var(--font-serif);
-    font-size: clamp(2rem, 4vw, 2.5rem);
-    font-weight: 500;
-    font-style: italic;
+    font-size: 0.95rem;
     color: var(--parchment);
+    opacity: 0.85;
+    line-height: 1.7;
     margin: 0 0 1.5rem 0;
-    line-height: 1.3;
-    transition: color 0.3s ease;
 }
 
-.featured-row:hover .featured-row-title {
-    color: var(--latte);
-}
-
-.featured-row-excerpt {
-    font-size: 1.2rem;
-    color: var(--parchment);
-    line-height: 1.8;
-    margin: 0;
-    opacity: 0.9;
-}
-
-/* Drop Cap Effect */
-.featured-row-excerpt::first-letter {
-    float: left;
-    font-size: 3.5rem;
-    line-height: 0.8;
-    padding-right: 0.5rem;
-    padding-top: 0.1rem;
+.exhibit-cta {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    border: 1px solid var(--terracotta);
     color: var(--terracotta);
     font-family: var(--font-serif);
-    font-weight: 600;
-}
-
-/* Right Column - Metadata */
-.featured-row-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding-left: 2rem;
-    border-left: 1px solid var(--wood);
-    justify-content: center;
-}
-
-.featured-row-date,
-.featured-row-reading-time,
-.featured-row-category {
-    font-family: var(--font-serif);
-    font-size: 0.85rem;
-    color: var(--latte);
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-variant: small-caps;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    transition: all 0.25s ease;
 }
 
-.featured-row-category {
-    color: var(--terracotta);
+.exhibit-cta:hover {
+    background: var(--terracotta);
+    color: var(--parchment);
 }
 
-/* Featured Exhibit Responsive */
+/* Active Card State (center) */
+.exhibit-card.is-active {
+    opacity: 1;
+    transform: scale(1.1) rotateY(0deg);
+    filter: blur(0);
+    z-index: 10;
+    cursor: default;
+}
+
+/* Side Cards States */
+.exhibit-card.is-side-left {
+    transform: scale(0.9) rotateY(25deg);
+    transform-origin: right center;
+}
+
+.exhibit-card.is-side-right {
+    transform: scale(0.9) rotateY(-25deg);
+    transform-origin: left center;
+}
+
+/* Hover Reveal (Active Card Only) */
+.exhibit-card.is-active:hover {
+    transform: scale(1.12) rotateY(0deg);
+    background: rgba(40, 28, 22, 0.98);
+    border-color: var(--terracotta);
+}
+
+.exhibit-card.is-active:hover .exhibit-title {
+    transform: translateY(-0.75rem);
+}
+
+.exhibit-card.is-active:hover .exhibit-details {
+    opacity: 1;
+    max-height: 250px;
+    margin-top: 1.5rem;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .featured-row-link {
-        margin-bottom: 80px;
+    .carousel-track {
+        gap: 4vw;
+        padding: 5vh 7.5vw;
     }
 
-    .featured-row {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .exhibit-card {
+        width: 85vw;
+        max-width: none;
+        min-width: auto;
+        aspect-ratio: 2/3;
     }
 
-    .featured-row-content {
-        padding-right: 0;
+    /* Reduced rotation on mobile */
+    .exhibit-card.is-side-left {
+        transform: scale(0.9) rotateY(10deg);
     }
 
-    .featured-row-meta {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1rem;
-        padding-left: 0;
-        padding-top: 1rem;
-        border-left: none;
-        border-top: 1px solid var(--wood);
+    .exhibit-card.is-side-right {
+        transform: scale(0.9) rotateY(-10deg);
     }
 
-    .featured-row-title {
-        font-size: 1.75rem;
+    .exhibit-title {
+        font-size: clamp(1.3rem, 5vw, 1.75rem);
     }
 
-    .featured-row-excerpt {
-        font-size: 1.1rem;
+    .exhibit-numeral {
+        font-size: 0.75rem;
     }
 
-    .featured-row-excerpt::first-letter {
-        font-size: 2.5rem;
+    /* Touch devices: show details on active without hover */
+    .exhibit-card.is-active .exhibit-details {
+        opacity: 1;
+        max-height: 200px;
+        margin-top: 1.25rem;
+    }
+
+    .exhibit-card.is-active .exhibit-title {
+        transform: translateY(-0.5rem);
     }
 }
