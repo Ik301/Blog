@@ -1249,14 +1249,33 @@ body {
    FEATURED EXHIBIT (Featured Page) - Dark Museum Walkthrough
    ========================================================================== */
 
-/* Dark background for featured page */
+/* Cinema Mode - Dark immersive background */
 .featured-page {
-    background-color: var(--espresso);
+    background: radial-gradient(circle at center, #3B2A23 0%, #1a120f 100%);
+    overflow: hidden;
+    height: 100vh;
 }
 
+/* Auto-hide header on desktop */
 .featured-page .header {
     background: rgba(59, 42, 35, 0.95);
     border-bottom-color: var(--wood);
+}
+
+@media (min-width: 769px) {
+    .featured-page .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        z-index: 100;
+    }
+
+    .featured-page .header.header-visible {
+        transform: translateY(0);
+    }
 }
 
 .featured-page .logo a,
@@ -1273,17 +1292,9 @@ body {
     background-color: var(--parchment);
 }
 
+/* Hide footer in Cinema Mode */
 .featured-page .footer {
-    background: rgba(59, 42, 35, 0.9);
-    border-top-color: var(--wood);
-}
-
-.featured-page .footer p {
-    color: var(--latte);
-}
-
-.featured-page .footer a {
-    color: var(--terracotta);
+    display: none;
 }
 
 /* Mobile menu on dark page */
@@ -1307,34 +1318,22 @@ body {
    3D ROTUNDA CAROUSEL - Featured Posts
    ========================================================================== */
 
-/* Global Atmosphere (The Room) */
-.featured-page {
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
 /* Break rotunda out of container constraint */
 .featured-page .main .container {
     max-width: none;
     padding: 0;
 }
 
+/* Spotlight overlay - hidden since background gradient handles atmosphere */
 .spotlight-overlay {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(
-        ellipse 60% 70% at 50% 50%,
-        rgba(59, 42, 35, 0) 0%,
-        rgba(0, 0, 0, 0.6) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
+    display: none;
 }
 
+/* 3D Rotunda Container */
 .rotunda-container {
-    perspective: 1000px;
+    perspective: 1500px;
     perspective-origin: center center;
-    min-height: calc(100vh - 80px);
+    height: 100vh;
     display: flex;
     align-items: center;
 }
@@ -1352,6 +1351,7 @@ body {
     -ms-overflow-style: none;
     position: relative;
     z-index: 2;
+    transform-style: preserve-3d;
 }
 
 .carousel-track::-webkit-scrollbar {
@@ -1381,11 +1381,18 @@ body {
     transform-style: preserve-3d;
     cursor: pointer;
 
-    /* Default state (side card) */
-    opacity: 0.4;
-    transform: scale(0.9) rotateY(25deg);
+    /* Default state (side card) - perspective() inline for overflow compatibility */
+    opacity: 0.3;
+    transform: perspective(1200px) scale(0.85) rotateY(40deg) translateZ(-100px);
     filter: blur(2px);
     z-index: 1;
+
+    /* 3D Reflection effect */
+    -webkit-box-reflect: below 10px linear-gradient(
+        transparent,
+        transparent 50%,
+        rgba(0, 0, 0, 0.5)
+    );
 }
 
 /* Typography - Closed State */
@@ -1448,26 +1455,35 @@ body {
 /* Active Card State (center) */
 .exhibit-card.is-active {
     opacity: 1;
-    transform: scale(1.1) rotateY(0deg);
+    transform: perspective(1200px) scale(1.1) rotateY(0deg) translateZ(0);
     filter: blur(0);
     z-index: 10;
     cursor: default;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* Side Cards States */
+/* Side Cards Base State */
+.exhibit-card.is-side {
+    opacity: 0.3;
+    filter: blur(2px);
+    z-index: 1;
+}
+
+/* Side Cards - Left (angled toward center) */
 .exhibit-card.is-side-left {
-    transform: scale(0.9) rotateY(25deg);
+    transform: perspective(1200px) scale(0.85) rotateY(40deg) translateZ(-100px);
     transform-origin: right center;
 }
 
+/* Side Cards - Right (angled toward center) */
 .exhibit-card.is-side-right {
-    transform: scale(0.9) rotateY(-25deg);
+    transform: perspective(1200px) scale(0.85) rotateY(-40deg) translateZ(-100px);
     transform-origin: left center;
 }
 
 /* Hover Reveal (Active Card Only) */
 .exhibit-card.is-active:hover {
-    transform: scale(1.12) rotateY(0deg);
+    transform: perspective(1200px) scale(1.12) rotateY(0deg) translateZ(0);
     background: rgba(40, 28, 22, 0.98);
     border-color: var(--terracotta);
 }
@@ -1496,13 +1512,13 @@ body {
         aspect-ratio: 2/3;
     }
 
-    /* Reduced rotation on mobile */
+    /* Reduced rotation on mobile (still 3D but less extreme) */
     .exhibit-card.is-side-left {
-        transform: scale(0.9) rotateY(10deg);
+        transform: perspective(1200px) scale(0.85) rotateY(15deg) translateZ(-80px);
     }
 
     .exhibit-card.is-side-right {
-        transform: scale(0.9) rotateY(-10deg);
+        transform: perspective(1200px) scale(0.85) rotateY(-15deg) translateZ(-80px);
     }
 
     .exhibit-title {
@@ -1522,5 +1538,332 @@ body {
 
     .exhibit-card.is-active .exhibit-title {
         transform: translateY(-0.5rem);
+    }
+}
+
+/* ==========================================================================
+   MANUSCRIPT LAYOUT - Distraction-Free Single Post View
+   ========================================================================== */
+
+/* Page Background */
+.manuscript-page {
+    background-color: var(--parchment);
+}
+
+/* Container (The Page) */
+.manuscript {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 2rem 100px;
+}
+
+/* ==========================================================================
+   MANUSCRIPT HEADER (Title Page)
+   ========================================================================== */
+.manuscript-header {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.manuscript-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--wood);
+    margin: 0 0 1.5rem 0;
+    font-weight: 600;
+}
+
+.manuscript-title {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--espresso);
+    margin: 0 0 0.25rem 0;
+    letter-spacing: -0.01em;
+}
+
+.manuscript-meta {
+    font-size: 0.95rem;
+    color: var(--latte);
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+}
+
+.manuscript-divider {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--latte);
+    letter-spacing: 0.5em;
+    opacity: 0.6;
+}
+
+/* ==========================================================================
+   MANUSCRIPT CONTENT (Typography)
+   ========================================================================== */
+.manuscript-content {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--espresso);
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Paragraphs - web academic style with spacing */
+.manuscript-content p {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+
+/* Blockquotes - Terracotta accent */
+.manuscript-content blockquote {
+    border-left: 3px solid var(--terracotta);
+    padding-left: 1.5em;
+    padding-right: 1em;
+    margin: 1.5em 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.manuscript-content blockquote p {
+    text-indent: 0;
+    margin-bottom: 0.5em;
+}
+
+.manuscript-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Headings within content */
+.manuscript-content h2 {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-top: 1em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 1.2;
+    color: var(--espresso);
+}
+
+.manuscript-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 2.5em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 1.2;
+    color: var(--espresso);
+}
+
+.manuscript-content h4 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 2.5em;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 1.2;
+    color: var(--espresso);
+}
+
+/* Pull-up paragraphs after headers (compensates for pre-wrap newline) */
+.manuscript-content h2 + p,
+.manuscript-content h3 + p,
+.manuscript-content h4 + p {
+    margin-top: -1.2rem;
+    padding-top: 0;
+}
+
+/* Pull-up first paragraph (compensates for post-YML indentation) */
+.manuscript-content > p:first-child {
+    margin-top: -1rem;
+}
+
+/* Lists */
+.manuscript-content ul,
+.manuscript-content ol {
+    margin: 0;
+    padding-left: 2em;
+}
+
+.manuscript-content li {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+/* Nested lists - no extra spacing */
+.manuscript-content li ul,
+.manuscript-content li ol {
+    margin: 0;
+    padding-left: 1.5em;
+}
+
+/* Links */
+.manuscript-content a {
+    color: var(--terracotta);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(163, 101, 63, 0.4);
+    transition: all 0.2s ease;
+}
+
+.manuscript-content a:hover {
+    color: var(--espresso);
+    border-bottom-color: var(--terracotta);
+}
+
+/* Code */
+.manuscript-content code {
+    background: rgba(200, 154, 113, 0.15);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.manuscript-content pre {
+    background: var(--surface-color);
+    padding: 1.5em;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+    border: 1px solid var(--border-color);
+}
+
+.manuscript-content pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.85rem;
+}
+
+/* Images */
+.manuscript-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 2em 0;
+    border-radius: 4px;
+}
+
+/* Horizontal rules */
+.manuscript-content hr {
+    border: none;
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.manuscript-content hr::before {
+    content: '***';
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--latte);
+    letter-spacing: 0.5em;
+    opacity: 0.6;
+}
+
+/* ==========================================================================
+   MANUSCRIPT FOOTER
+   ========================================================================== */
+.manuscript-footer {
+    margin-top: 4rem;
+}
+
+/* ==========================================================================
+   SAME-CATEGORY NAVIGATION
+   ========================================================================== */
+.manuscript-nav {
+    padding-top: 2rem;
+}
+
+.manuscript-nav-label {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--wood);
+    margin: 0 0 1.5rem 0;
+    font-weight: 600;
+}
+
+.manuscript-nav-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.manuscript-nav-link {
+    flex: 1;
+    text-decoration: none;
+    padding: 1rem;
+    border: 1px solid var(--latte);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.manuscript-nav-link:hover {
+    border-color: var(--terracotta);
+    background: rgba(163, 101, 63, 0.05);
+}
+
+.manuscript-nav-prev {
+    text-align: left;
+}
+
+.manuscript-nav-next {
+    text-align: right;
+}
+
+.manuscript-nav-placeholder {
+    border: none;
+    background: none;
+}
+
+.manuscript-nav-direction {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--latte);
+    margin-bottom: 0.5rem;
+}
+
+.manuscript-nav-title {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--espresso);
+    line-height: 1.3;
+}
+
+/* ==========================================================================
+   MANUSCRIPT RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .manuscript {
+        padding: 60px 1.5rem 60px;
+    }
+
+    .manuscript-title {
+        font-size: 2.25rem;
+    }
+
+    .manuscript-content {
+        font-size: 1.1rem;
+    }
+
+    .manuscript-nav-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .manuscript-nav-prev,
+    .manuscript-nav-next {
+        text-align: left;
     }
 }

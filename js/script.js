@@ -330,3 +330,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // Also update on window resize
     window.addEventListener('resize', updateCardStates);
 });
+
+// --- Cinema Mode: Auto-hide Header ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Only run on featured page
+    if (!document.body.classList.contains('featured-page')) return;
+
+    // Skip on mobile (header stays visible)
+    if (window.innerWidth <= 768) return;
+
+    const header = document.querySelector('.header');
+    if (!header) return;
+
+    const TRIGGER_ZONE = 60; // px from top to show header
+
+    // Show header when mouse enters trigger zone
+    document.addEventListener('mousemove', (e) => {
+        if (e.clientY <= TRIGGER_ZONE) {
+            header.classList.add('header-visible');
+        }
+    });
+
+    // Hide header when mouse leaves it
+    header.addEventListener('mouseleave', () => {
+        header.classList.remove('header-visible');
+    });
+
+    // Handle window resize (re-check mobile breakpoint)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 768) {
+            header.classList.remove('header-visible');
+        }
+    });
+});
